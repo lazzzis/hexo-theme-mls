@@ -65,17 +65,26 @@ A hexo made for hexo3;
      About: /curriculumvitae/index.html
    #  Promises: /promises/index.html # you'd better remove this line
 
+   # Google Analytics
+
+   google_analytics: UA-87274131-1
+
    # Miscellaneous
    favicon: # url for your favicon
    twitter: # twitter id
-   google_plus:
    github: # github id
-   fb_admins:
    fb_app_id:
-   instagram: 
+   instagram:
    music: # your id in music.163.com, like http://music.163.com/#/user/home?id=...
+
+   # due to some reason, this has to be a url rather than id
+   google_plus: https://plus.google.com/114550357749490779368
+
+   # disable some share applications.
+   # For the details of all the applications, please refer to https://github.com/overtrue/share.js
+   share_disabled: weibo,qzone,qq,tencent,douban,linkedin,diandian
    ```
 
 2. background image
 
-   The image is under `source/css/images`, and it has to been named as 'background.jpg';
+   The image is under `source/css/images`, and it has to be named as 'background.jpg';
