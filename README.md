@@ -67,7 +67,7 @@ A hexo made for hexo3;
 
    # Google Analytics
 
-   google_analytics: UA-87274131-1
+   google_analytics:
 
    # Miscellaneous
    favicon: # url for your favicon
@@ -78,7 +78,7 @@ A hexo made for hexo3;
    music: # your id in music.163.com, like http://music.163.com/#/user/home?id=...
 
    # due to some reason, this has to be a url rather than id
-   google_plus: https://plus.google.com/114550357749490779368
+   google_plus:
 
    # disable some share applications.
    # For the details of all the applications, please refer to https://github.com/overtrue/share.js
