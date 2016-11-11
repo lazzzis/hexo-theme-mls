@@ -1,0 +1,12 @@
+<% if (item.categories && item.categories.length){ %>
+<%
+    var categories = [];
+    item.categories.forEach(function(category){
+        categories.push('<a href="' + config.root + category.path + '">' + category.name + '</a>');
+    });
+%>
+<div class="blog-categories-container">
+    <i class="material-icons">folder_shared</i>
+    <%- categories.join(' / ') %>
+</div>
+<% } %>

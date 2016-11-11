@@ -1,0 +1,56 @@
+<footer class="grey darken-3">
+    <div class="footer-link">
+        <% if (theme.github){%>
+        <a href="https://github.com/<%- theme.github %>" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+        <%}%>
+        <% if (theme.twitter){%>
+        <a href="https://twitter.com/<%- theme.twitter%>" target="_blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+        <%}%>
+        <% if (theme.instagram){%>
+        <a href="https://www.instagram.com/<%- theme.instagram %>" target="_blank"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+        <%}%>
+        <% if (theme.music){%>
+        <a href="http://music.163.com/#/user/home?id=<%- theme.music %>" target="_blank"><i class="fa fa-music fa-2x" aria-hidden="true"></i></a>
+        <%}%>
+    </div>
+    <div class="footer-ps">
+        <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+            &copy; <%= date(new Date(), 'YYYY') %> <a
+                    <% if (theme.github){%>
+                    href="https://github.com/<%- theme.github %>" target="_blank"
+                    <%}%>
+            > <%= config.author || config.title %><br></a>
+        </p>
+    </div>
+</footer>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.15/js/social-share.min.js"></script>
+<%- js('js/addition') %>
+<!-- Disqus Comments -->
+
+<% if (theme.disqus_shortname){ %>
+<script type="text/javascript">
+    var disqus_shortname = '<%= theme.disqus_shortname %>';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+<% } %>
+
+<script>
+    // https://github.com/srobbin/jquery-backstretch
+    $.backstretch("<%= url_for("css/images/background.jpg")%>");
+
+</script>

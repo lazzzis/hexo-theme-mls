@@ -1,0 +1,30 @@
+<article class="article-full">
+
+    <!-- Title -->
+    <h2 class="blog-item-title">
+        <a href="<%- config.root %><%- item.path %>">
+            <%- item.title || item.link%>
+        </a>
+    </h2>
+
+    <!-- Date and Author -->
+    <p class="blog-item-meta">
+        <%= item.date.format("YYYY-MMM-DD HH:mm:ss") %>
+        <% if(item.author) { %>
+        by <%- item.author %>
+        <% } %>
+    </p>
+
+    <!-- Content -->
+    <%- item.content %>
+
+    <hr/>
+
+    <div class="social-share" data-disabled="weibo,qzone,qq,tencent,douban,linkedin,diandian"></div>
+
+    <%- partial('comments') %>
+
+    <!-- Tags and Categories links -->
+
+
+</article>
