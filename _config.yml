@@ -7,33 +7,14 @@ menu:
   Links: /links/index.html
   About: /curriculumvitae/index.html
   Promises: /promises/index.html
-#rss: /atom.xml
-
-#subtitle: 
-
-# Content
-#excerpt_link: Read More
-#excerpt_depth:
-
-#fancybox: true
-
-# Sidebar
-sidebar: right
-
-widgets:
-- category
-- tag
-- tagcloud
-- archive
-- recent_posts
 
 # Miscellaneous
-google_analytics:
 favicon: https://s18.postimg.org/k7qcci1t5/s_icon.png
 twitter: lazzzis
-google_plus:
 github: lazzzis
-fb_admins:
-fb_app_id:
 instagram: lazzzis
 music: 30744948
+
+# disable some share applications.
+# For the details of all the applications, please refer to https://github.com/overtrue/share.js
+share_disabled: weibo,qzone,qq,tencent,douban,linkedin,diandian
