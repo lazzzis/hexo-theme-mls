@@ -19,6 +19,9 @@ $h6-fontsize: 1rem !default;
 
 html {
   font-size: 14px;
+  font-family: "Roboto", sans-serif "Times New Roman", 
+             "Microsoft YaHei", "微软雅黑", 
+             STXihei, "华文细黑";
 }
 
 body {
@@ -57,7 +60,7 @@ header nav {
   margin-left: 20%;
   margin-top: 1%;
   margin-bottom: 1%;
-  overflow: scroll;
+  /*overflow: scroll;*/
 
   .blog-tags-container a:hover {
       color: $link_hover_color
