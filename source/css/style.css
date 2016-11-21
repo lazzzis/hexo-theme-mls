@@ -1,7 +1,14 @@
 @charset "UTF-8";
 html {
   font-size: 14px;
-  font-family: "Roboto", sans-serif "Times New Roman",  "Microsoft YaHei", "微软雅黑",  STXihei, "华文细黑"; }
+  font-family: "Roboto", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif; }
+
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Consolas, "Source Code Pro", Inconsolata, Monaco, "Courier New", sans-serif;
+  font-size: 1em; }
 
 body {
   background-color: white; }
