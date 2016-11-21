@@ -1,6 +1,6 @@
 # hexo-theme-mls
 
-A hexo made for hexo3;
+A hexo made for hexo3
 
 [Preview](https://lazzzis.github.io)
 
@@ -61,9 +61,9 @@ A hexo made for hexo3;
      Archives: /archives
      Categories: /categories
      Tags: /tags
-     Links: /links/index.html
-     About: /curriculumvitae/index.html
-   #  Promises: /promises/index.html # you'd better remove this line
+     Links: /links
+     About: /about
+   rss: /atom.xml
 
    # Google Analytics
 

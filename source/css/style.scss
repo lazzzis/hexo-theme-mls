@@ -106,7 +106,7 @@ header nav {
 footer {
   width: 100%;
   background: black;
-  height: 75px;
+  height: 80px;
 
   p {
     font-size: 0.8em;
@@ -149,8 +149,8 @@ footer {
 
 .footer-ps {
   a:hover {
-    color: $link_hover_color;
-  }
+      color: $link_hover_color;
+    }
 }
 
 .material-icons {
@@ -235,6 +235,7 @@ article {
   &.article-full {
     background-color: rgba(250, 250, 250, 0.96);
     padding: 20px;
+
     h1 { font-size: $h1-fontsize * 0.8; };
     h2 { font-size: $h2-fontsize * 0.8; };
     h3 { font-size: $h3-fontsize * 0.8; };
@@ -243,9 +244,8 @@ article {
     h6 { font-size: $h6-fontsize * 1.25; };
 
     img {
-      max-width: 80%;
+      max-width: 75%;
       min-width: 30%;
-      //width: 75%;
       margin: auto;
       display: block;
       height: auto;

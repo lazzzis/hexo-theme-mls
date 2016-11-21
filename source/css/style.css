@@ -68,7 +68,7 @@ header nav {
 footer {
   width: 100%;
   background: black;
-  height: 75px; }
+  height: 80px; }
   footer p {
     font-size: 0.8em;
     margin-left: 15px;
@@ -166,7 +166,7 @@ article {
     article.article-full h6 {
       font-size: 1.25rem; }
     article.article-full img {
-      max-width: 80%;
+      max-width: 75%;
       min-width: 30%;
       margin: auto;
       display: block;

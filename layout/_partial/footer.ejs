@@ -18,6 +18,9 @@
         <% if (theme.music){%>
         <a href="http://music.163.com/#/user/home?id=<%- theme.music %>" target="_blank"><i class="fa fa-music fa-2x" aria-hidden="true"></i></a>
         <%}%>
+        <% if (theme.rss){ %>
+          <a href="<%- theme.rss %>" target="_blank" title="<%= __('rss_feed') %>"><i class="fa fa-rss fa-2x" aria-hidden="true"></i></a>
+        <% } %>
     </div>
     <div class="footer-ps">
         <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
@@ -25,7 +28,7 @@
                     <% if (theme.github){%>
                     href="https://github.com/<%- theme.github %>" target="_blank"
                     <%}%>
-            > <%= config.author || config.title %><br></a>
+            > <%= config.author || config.title %></a> - Theme <a href="https://github.com/lazzzis/hexo-theme-mls" target="_blank">MLS</a>
         </p>
     </div>
 </footer>

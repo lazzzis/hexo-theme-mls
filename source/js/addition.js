@@ -98,3 +98,6 @@ $(window).scroll(function() {
       $('header nav').addClass('inscroll');
   }
 });
+
+// ul default in article
+$("article.article-full ul").addClass("browser-default");

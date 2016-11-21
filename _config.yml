@@ -4,9 +4,10 @@ menu:
   Archives: /archives
   Categories: /categories
   Tags: /tags
-  Links: /links/index.html
-  About: /curriculumvitae/index.html
-  #Promises: /promises/index.html
+  Links: /links
+  About: /about
+
+rss: /atom.xml
 
 # Google Analytics
 
