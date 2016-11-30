@@ -20,18 +20,22 @@ $h6-fontsize: 1rem !default;
 html {
   font-size: 14px;
   font-family: "Roboto", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif;
+  height:100%;
 }
 
 code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Consolas, "Source Code Pro", Inconsolata, Monaco, "Courier New", sans-serif;
+  font-family: "Source Code Pro", Menlo, Consolas, Inconsolata, Monaco, "Courier New", sans-serif;
   font-size: 1em;
 }
 
 body {
   background-color: white;
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 80px;
 }
 
 .inscroll {
@@ -104,6 +108,10 @@ header nav {
 }
 
 footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left:0;
   width: 100%;
   background: black;
   height: 80px;
@@ -315,13 +323,6 @@ article {
   }
 }
 
-// @keyframes backstretch-img {
-//   from {opacity: 0}
-//   to {opacity: 1}
-// }
-//
-// .backstretch {
-//   //animation-name: backstretch-img;
-//   //animation-duration: 2.5s;
-//   //animation-timing-function: ease;
-// }
+/*#dsq-content #dsq-comments .dsq-comment-body {
+    font-family: "Roboto", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif;
+}*/

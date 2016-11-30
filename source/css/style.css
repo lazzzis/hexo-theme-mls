@@ -1,17 +1,21 @@
 @charset "UTF-8";
 html {
   font-size: 14px;
-  font-family: "Roboto", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif; }
+  font-family: "Roboto", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif;
+  height: 100%; }
 
 code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Consolas, "Source Code Pro", Inconsolata, Monaco, "Courier New", sans-serif;
+  font-family: "Source Code Pro", Menlo, Consolas, Inconsolata, Monaco, "Courier New", sans-serif;
   font-size: 1em; }
 
 body {
-  background-color: white; }
+  background-color: white;
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 80px; }
 
 .inscroll {
   opacity: 0.7; }
@@ -66,6 +70,10 @@ header nav {
   top: 29%; }
 
 footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
   width: 100%;
   background: black;
   height: 80px; }
@@ -207,5 +215,9 @@ article {
   article.tag-item {
     margin-bottom: 0;
     padding: 15px; }
+
+/*#dsq-content #dsq-comments .dsq-comment-body {
+    font-family: "Roboto", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "WenQuanYi Micro Hei", sans-serif;
+}*/
 
 /*# sourceMappingURL=style.css.map */

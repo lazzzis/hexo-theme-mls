@@ -101,3 +101,9 @@ $(window).scroll(function() {
 
 // ul default in article
 $("article.article-full ul").addClass("browser-default");
+
+// vedio fitvids
+$(document).ready(function(){
+    // Target your .container, .wrapper, .post, etc.
+    $(".article-full").fitVids();
+});
