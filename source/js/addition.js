@@ -107,3 +107,8 @@ $(document).ready(function(){
     // Target your .container, .wrapper, .post, etc.
     $(".article-full").fitVids();
 });
+
+
+// zooming
+
+$(".article-full img").attr("data-action", "zoom");
