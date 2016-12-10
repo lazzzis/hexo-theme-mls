@@ -61,7 +61,7 @@ header nav {
     color: #ff6f00; }
 
 .container {
-  min-height: 1000px; }
+  /*min-height: 1000px;*/ }
 
 .article-meta {
   width: 15%;
@@ -188,8 +188,9 @@ article {
       display: block;
       text-align: center; }
     article.article-full *:not(pre) > code {
-      color: #ec407a;
-      background-color: #ede7f6; }
+      color: green;
+      /*color: #ec407a;*/
+      /*background-color: #ede7f6;*/ }
     article.article-full blockquote {
       border-left-color: #80d8ff;
       padding-top: 0.5rem;

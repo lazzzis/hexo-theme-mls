@@ -97,7 +97,7 @@ header nav {
 }
 
 .container {
-  min-height: 1000px;
+  /*min-height: 1000px;*/
 }
 
 .article-meta {
@@ -273,8 +273,9 @@ article {
     }
     *:not(pre) {
       > code {
-        color: #ec407a;
-        background-color: #ede7f6;
+        color: green;
+        /*color: #ec407a;*/
+        /*background-color: #ede7f6;*/
       }
     }
 
