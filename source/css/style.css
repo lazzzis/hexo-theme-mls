@@ -160,19 +160,26 @@ article {
     background-color: white; }
   article.article-full {
     background-color: rgba(250, 250, 250, 0.96);
-    padding: 20px; }
+    padding: 20px;
+    /*    h2 {color: #00838f}*/
+    /*h3 {color: #00838f}*/
+    /*h4 {color: #0097a7}*/
+    /*h5 {color: #0097a7}*/
+    /*h6 {color: grey}*/ }
+    article.article-full h1, article.article-full h2, article.article-full h3, article.article-full h4, article.article-full h5, article.article-full h6 {
+      color: #006064; }
     article.article-full h1 {
-      font-size: 3.36rem; }
+      font-size: 3rem; }
     article.article-full h2 {
-      font-size: 2.848rem; }
+      font-size: 2rem; }
     article.article-full h3 {
-      font-size: 2.336rem; }
+      font-size: 1.5rem; }
     article.article-full h4 {
-      font-size: 1.824rem; }
+      font-size: 1.2rem; }
     article.article-full h5 {
-      font-size: 1.476rem; }
+      font-size: 1rem; }
     article.article-full h6 {
-      font-size: 1.25rem; }
+      font-size: 1rem; }
     article.article-full img {
       max-width: 75%;
       min-width: 30%;
@@ -204,8 +211,6 @@ article {
       color: #039be5; }
     article.article-full strong {
       color: #7b1fa2; }
-    article.article-full h1, article.article-full h2, article.article-full h3, article.article-full h4, article.article-full h5, article.article-full h6 {
-      color: #006064; }
   article.list {
     padding: 1rem; }
     article.list li {

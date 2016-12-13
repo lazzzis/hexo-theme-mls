@@ -10,11 +10,11 @@ $link_hover_color: #ff6f00;
 
 $opacity_grey: rgba(158, 158, 158, 0.7);
 
-$h1-fontsize: 4.2rem !default;
-$h2-fontsize: 3.56rem !default;
-$h3-fontsize: 2.92rem !default;
-$h4-fontsize: 2.28rem !default;
-$h5-fontsize: 1.64rem !default;
+$h1-fontsize: 3rem !default;
+$h2-fontsize: 2rem !default;
+$h3-fontsize: 1.5rem !default;
+$h4-fontsize: 1.2rem !default;
+$h5-fontsize: 1rem !default;
 $h6-fontsize: 1rem !default;
 
 html {
@@ -244,12 +244,21 @@ article {
     background-color: rgba(250, 250, 250, 0.96);
     padding: 20px;
 
-    h1 { font-size: $h1-fontsize * 0.8; };
-    h2 { font-size: $h2-fontsize * 0.8; };
-    h3 { font-size: $h3-fontsize * 0.8; };
-    h4 { font-size: $h4-fontsize * 0.8; };
-    h5 { font-size: $h5-fontsize * 0.9; };
-    h6 { font-size: $h6-fontsize * 1.25; };
+    h1, h2, h3, h4, h5, h6 {
+      color: #006064;
+    }
+/*    h2 {color: #00838f}*/
+    /*h3 {color: #00838f}*/
+    /*h4 {color: #0097a7}*/
+    /*h5 {color: #0097a7}*/
+    /*h6 {color: grey}*/
+
+    h1 { font-size: $h1-fontsize}
+    h2 { font-size: $h2-fontsize}
+    h3 { font-size: $h3-fontsize}
+    h4 { font-size: $h4-fontsize}
+    h5 { font-size: $h5-fontsize}
+    h6 { font-size: $h6-fontsize}
 
     img {
       max-width: 75%;
@@ -293,18 +302,17 @@ article {
       color: $link_hover_color;
     }
 
-    .blog-item-title a:hover {
-      color: $primary_blue;
+    .blog-item-title {
+        a:hover{
+          color: $primary_blue;
+        }
     }
 
     strong {
       color: #7b1fa2;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      color: #006064;
-    }
-  }
+     }
 
   &.list {
     padding: 1rem;
