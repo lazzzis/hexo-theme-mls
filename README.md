@@ -2,7 +2,7 @@
 
 A hexo made for hexo3
 
-[Preview](https://lazzzis.github.io)
+[Preview](http://lazzzis.github.io)
 
 ## Installation
 
