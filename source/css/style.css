@@ -166,6 +166,13 @@ article {
     /*h4 {color: #0097a7}*/
     /*h5 {color: #0097a7}*/
     /*h6 {color: grey}*/ }
+    article.article-full .blog-item-meta {
+      line-height: 1.5;
+      color: grey; }
+    article.article-full .blog-item-title {
+      font-size: 3rem; }
+      article.article-full .blog-item-title a:hover {
+        color: #039be5; }
     article.article-full h1, article.article-full h2, article.article-full h3, article.article-full h4, article.article-full h5, article.article-full h6 {
       color: #006064; }
     article.article-full h1 {
@@ -207,8 +214,6 @@ article {
       line-height: 1.2rem; }
     article.article-full a:hover {
       color: #ff6f00; }
-    article.article-full .blog-item-title a:hover {
-      color: #039be5; }
     article.article-full strong {
       color: #7b1fa2; }
   article.list {

@@ -45,6 +45,9 @@
             user-select: none;
         }
     </style>
-    <%- css('css/style.css') %>
-    <%- css('css/code.css') %>
+    <!-- <%- css('css/style.css') %> -->
+    <!-- <%- css('css/code.css') %> -->
+    <link rel="stylesheet" href="<%= url_for('css/style.css')%>?version=<%=date(Date.now(), 'M-D-mm-ss') %>" type="text/css">
+    <link rel="stylesheet" href="<%= url_for('css/code.css')%>?version=<%=date(Date.now(), 'M-D-mm-ss') %>" type="text/css">
+
 </head>

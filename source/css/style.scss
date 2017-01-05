@@ -244,6 +244,19 @@ article {
     background-color: rgba(250, 250, 250, 0.96);
     padding: 20px;
 
+    .blog-item-meta {
+        line-height: 1.5;
+        color: grey;
+    }
+
+    .blog-item-title {
+        font-size: $h1-fontsize;
+
+        a:hover{
+          color: $primary_blue;
+        }
+    }
+
     h1, h2, h3, h4, h5, h6 {
       color: #006064;
     }
@@ -302,12 +315,7 @@ article {
       color: $link_hover_color;
     }
 
-    .blog-item-title {
-        a:hover{
-          color: $primary_blue;
-        }
-    }
-
+    
     strong {
       color: #7b1fa2;
     }

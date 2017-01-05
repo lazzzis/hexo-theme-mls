@@ -9,11 +9,19 @@
 
     <!-- Date and Author -->
     <p class="blog-item-meta">
-        <%= item.date.format("YYYY-MMM-DD HH:mm:ss") %>
+        Published on <%= item.date.format("YYYY MMM DD HH:mm:ss") %>
+        <% if(item.author) { %>
+        by <%- item.author %>
+        <% } %>
+    
+        </br>
+        Last Updated on <%= item.updated.format("YYYY MMM DD HH:mm:ss") %>
         <% if(item.author) { %>
         by <%- item.author %>
         <% } %>
     </p>
+
+
     <!-- Content -->
     <%- item.content %>
 
