@@ -2,7 +2,7 @@
 
 A hexo made for hexo3
 
-[Preview](http://lazzzis.github.io)
+[Preview](https://lazzzis.github.io/hexo-theme-mls)
 
 ## Installation
 
