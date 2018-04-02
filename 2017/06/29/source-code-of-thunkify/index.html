@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<!-- Head -->
+<head>
+  <meta charset="utf-8">
+  
+  <title>node-thunkify 的实现及源码阅读 | lazzzis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近看了些项目的源码，其中就包括 thunkify。虽然 thunkify 代码简单，很快就读完了，不过看看项目的测试文件和提交历史，也还是能看出很多事物的。这次阅读的代码是当前最新版本，commit 编号 0bd83e。 功能陈述将一个函数转换为一个为 Thunk 函数，这个函数被调用后会返回一个以回调函数为参数的函数。可以参考 Thunk 函数。 简单实现因为需求比较简单，所以我自己先实现了一">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node-thunkify 的实现及源码阅读">
+<meta property="og:url" content="https://lazzzis.github.io/hexo-theme-mls/2017/06/29/source-code-of-thunkify/index.html">
+<meta property="og:site_name" content="lazzzis">
+<meta property="og:description" content="最近看了些项目的源码，其中就包括 thunkify。虽然 thunkify 代码简单，很快就读完了，不过看看项目的测试文件和提交历史，也还是能看出很多事物的。这次阅读的代码是当前最新版本，commit 编号 0bd83e。 功能陈述将一个函数转换为一个为 Thunk 函数，这个函数被调用后会返回一个以回调函数为参数的函数。可以参考 Thunk 函数。 简单实现因为需求比较简单，所以我自己先实现了一">
+<meta property="og:updated_time" content="2017-08-02T14:47:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node-thunkify 的实现及源码阅读">
+<meta name="twitter:description" content="最近看了些项目的源码，其中就包括 thunkify。虽然 thunkify 代码简单，很快就读完了，不过看看项目的测试文件和提交历史，也还是能看出很多事物的。这次阅读的代码是当前最新版本，commit 编号 0bd83e。 功能陈述将一个函数转换为一个为 Thunk 函数，这个函数被调用后会返回一个以回调函数为参数的函数。可以参考 Thunk 函数。 简单实现因为需求比较简单，所以我自己先实现了一">
+<meta name="twitter:creator" content="@lazzzis">
+<link rel="publisher" href="https://plus.google.com/114550357749490779368">
+  
+    <link rel="alternative" href="/atom.xml" title="lazzzis" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://s18.postimg.org/k7qcci1t5/s_icon.png">
+  
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.15/css/share.min.css">
+    <style>
+        .hljs-line-numbers {
+            text-align: right;
+            border-right: 1px solid #ccc;
+            color: #999;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="/hexo-theme-mls/css/style.css"> -->
+    <!-- <link rel="stylesheet" href="/hexo-theme-mls/css/code.css"> -->
+    <link rel="stylesheet" href="/hexo-theme-mls/css/style.css?version=10-27-46-13" type="text/css">
+    <link rel="stylesheet" href="/hexo-theme-mls/css/code.css?version=10-27-46-13" type="text/css">
+
+</head>
+
+
+<body>
+
+<header>
+    <div class="navbar-fixed">
+        <nav class="blue darken-3 nav-extended">
+            <div class="nav-wrapper">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="hide-on-med-and-down">
+                    
+                        <li><a href="/" class="nav-logo">lazzzis</a></li>
+                    
+                    
+                    <li><a class="" href="/hexo-theme-mls/">Home</a></li>
+                    
+                    <li><a class="" href="/hexo-theme-mls/archives">Archives</a></li>
+                    
+                    <li><a class="" href="/hexo-theme-mls/categories">Categories</a></li>
+                    
+                    <li><a class="" href="/hexo-theme-mls/tags">Tags</a></li>
+                    
+                    <li><a class="" href="/hexo-theme-mls/about">About</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+    <ul class="side-nav" id="mobile-demo">
+        
+        <li><a class="" href="/hexo-theme-mls/">Home</a></li>
+        
+        <li><a class="" href="/hexo-theme-mls/archives">Archives</a></li>
+        
+        <li><a class="" href="/hexo-theme-mls/categories">Categories</a></li>
+        
+        <li><a class="" href="/hexo-theme-mls/tags">Tags</a></li>
+        
+        <li><a class="" href="/hexo-theme-mls/about">About</a></li>
+        
+    </ul>
+    <!--You have to move ul out to make sure this work in mobile environment-->
+</header>
+
+
+<div class="container">
+      <article class="article-full">
+
+    <!-- Title -->
+    <h2 class="blog-item-title">
+        <a href="/hexo-theme-mls/2017/06/29/source-code-of-thunkify/">
+            node-thunkify 的实现及源码阅读
+        </a>
+    </h2>
+
+    <!-- Date and Author -->
+    <p class="blog-item-meta">
+        Published on 2017 Jun 29 15:52:32
+        
+    
+        </br>
+        Last Updated on 2017 Aug 02 10:47:06
+        
+    </p>
+
+
+    <!-- Content -->
+    <p>最近看了些项目的源码，其中就包括 <code>thunkify</code>。虽然 <code>thunkify</code> 代码简单，很快就读完了，不过看看项目的测试文件和提交历史，也还是能看出很多事物的。这次阅读的代码是当前最新版本，commit 编号 <a href="https://github.com/tj/node-thunkify/tree/0bd83e29df1bb0653230724f072cff96b0ab684e" target="_blank" rel="external">0bd83e</a>。</p>
+<h1 id="功能陈述"><a href="#功能陈述" class="headerlink" title="功能陈述"></a>功能陈述</h1><p>将一个函数转换为一个为 Thunk 函数，这个函数被调用后会返回一个以回调函数为参数的函数。可以参考 <a href="http://es6.ruanyifeng.com/#docs/generator-async#Thunk-函数" target="_blank" rel="external">Thunk 函数</a>。</p>
+<h1 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h1><p>因为需求比较简单，所以我自己先实现了一下，然后比较与官方仓库的差异，可以发现一些源码的特点。呢</p>
+<p>我自己的实现:</p>
+<pre><code class="js">module.exports = function (fn) {
+  return function (...args) {
+    return function (callback) {
+      fn(...args, callback)
+    }
+  }
+}
+</code></pre>
+<h2 id="从测试看问题"><a href="#从测试看问题" class="headerlink" title="从测试看问题"></a>从测试看问题</h2><p>源码有 test 文件，可以将源码的测试文件 clone 到本地后测试。将上面的代码测试后可以发现 3 个测试未通过:</p>
+<ol>
+<li>thunkify(fn) should maintain the receiver</li>
+<li>thunkify(fn) should catch errors</li>
+<li>thunkify(fn) should ignore multiple callbacks</li>
+</ol>
+<h3 id="maintain-the-receiver"><a href="#maintain-the-receiver" class="headerlink" title="maintain the receiver"></a>maintain the receiver</h3><p>通过 test 文件代码发现，这里主要涉及到一个关于 <code>this</code> 的问题:</p>
+<pre><code class="js">function load (fn) {
+    fn(null, this.name)
+}
+
+var user = {
+    name: &#39;tobi&#39;,
+    load: thunkify(load)
+}
+
+user.load()(function (err, name) {
+    if (err) return done(err)
+    assert(name === &#39;tobi&#39;)
+    done()
+})
+</code></pre>
+<p>原函数 f 可能是某个对象的方法，所以要保证 thunkify 后的函数，称它为 tf, 仍然能正常访问 <code>this</code> ，所以 tf 函数里需要能引用到原函数 f 里 <code>this</code> 的值，<code>thunkify</code> 源码中用 <code>ctx</code> 变量对其表示原函数 f 的 <code>this</code>：</p>
+<pre><code class="js">var ctx = this; // line 27
+fn.apply(ctx, args); // line 43
+</code></pre>
+<h3 id="catch-errors"><a href="#catch-errors" class="headerlink" title="catch errors"></a>catch errors</h3><p>尽管原函数 f 是需要一个回调函数做参数，理论上这个回调函数应该能捕捉异常了，但有些时候，这个回调函数可能没有正常 catch，例如测试文件中的样例:</p>
+<pre><code class="js">// fn 作为回调函数却没有捕捉这个异常
+function load (fn) {
+    throw new Error(&#39;boom&#39;)
+}
+
+load = thunkify(load)
+
+load()(function (err) {
+    assert(err)
+    assert(err.message === &#39;boom&#39;)
+    done()
+})
+</code></pre>
+<p>而 thunkify 则 “帮” 其捕捉了。当发现原函数 f 抛出异常时，源码中自动用用户传进的回调函数捕捉了。</p>
+<pre><code class="js">// line 42 - 47
+// done 代表用户传进的回调函数
+try {
+  fn.apply(ctx, args);
+} catch (err) {
+  done(err);
+}
+</code></pre>
+<h3 id="ignore-multiple-callbacks"><a href="#ignore-multiple-callbacks" class="headerlink" title="ignore multiple callbacks"></a>ignore multiple callbacks</h3><p>理论上讲，一个回调函数 callback 只能被调用一次，但在实际情况中，仍然会存在被调用多次的意外情况，例如测试文件中的例子：</p>
+<pre><code class="js">function load (fn) {
+    fn(null, 1)
+    fn(null, 2)
+    fn(null, 3)
+}
+
+load = thunkify(load)
+
+load()(done)
+</code></pre>
+<p>为了确保回调函数 callback 只被调用了一次，<code>thunkify</code> 对回调函数进行了一次封装：</p>
+<pre><code class="js">// line 34 - 40
+var called;
+
+args.push(function(){
+    if (called) return;
+    called = true;
+    done.apply(null, arguments);
+});
+</code></pre>
+<p><code>called</code> 作为一个 flag，第一次调用时，if 语句会把 called 当作否定值，所以 <code>return</code> 不会被执行。但从第二次开始，<code>called</code> 都会变成 <code>true</code>，所以 <code>return</code> 都会执行，确保了回调函数 callback 只会被调用一次。</p>
+<p>这里需要注意一下 <code>args</code> 这个变量，它每次都会 <code>push</code> 一下，因为 <code>thunkify</code> 后的函数 tf 可能被引用调用多次:</p>
+<pre><code class="js">function fn (done) {
+  done(null, Date.now())
+}
+
+let tf = thunkify(fn)()
+
+let c1, c2, c3
+c1 = c2 = c3 = (err, value) =&gt; console.log(value)
+
+tf(c1)
+tf(c2)
+tf(c3)
+</code></pre>
+<p>这个程序最后只会输出一次值。因为根据闭包规则，第二次调用 tf 开始，回调函数就被 <code>push</code> 进 <code>args</code> 里了。当第三次调用 tf 时，此时的 args 等价为 <code>[c1, c2, c3]</code>，根据源码， <code>tf(c3)</code> 相当于调用 <code>tf.apply(ctx, [c1, c2, c3])</code>。所以此时真正执行的回调是 <code>c1</code>，如前文所说，这个 <code>c1</code> 是被源码封装过的，里面的内容只会被执行一次。</p>
+<h3 id="自己的实现（改进后）"><a href="#自己的实现（改进后）" class="headerlink" title="自己的实现（改进后）"></a>自己的实现（改进后）</h3><p>结合 ES6，自己在解决上述问题后又实现了一遍，功能上没有改变，全是增加鲁棒性</p>
+<pre><code class="js">module.exports = function (fn) {
+  assert(&#39;function&#39; === typeof fn, &#39;function required&#39;)
+
+  return function (...args) {
+    const ctx = this // fix test &#39;should maintain the receiver&#39;
+
+    return function (callback) {
+      const refinedCallback = function (callback) {
+        let first = true
+        return function (...args) {
+          if (!first) return
+          first = false
+          callback(...args)
+        }
+      }
+
+      args.push(refinedCallback(callback))
+
+      try {
+        fn.call(ctx, ...args)
+      } catch (err) {
+        callback(err)
+      }
+    }
+  }
+}
+</code></pre>
+<h2 id="从-Commit-看改进"><a href="#从-Commit-看改进" class="headerlink" title="从 Commit 看改进"></a>从 Commit 看改进</h2><p>查看各个 commit，以及以前的代码，可以发现一些有趣的事。</p>
+<h3 id="crankshaft"><a href="#crankshaft" class="headerlink" title="crankshaft"></a>crankshaft</h3><p>在 <a href="https://github.com/tj/node-thunkify/commit/d537460eb23e3d556c4f726eb04bef189dd3994f" target="_blank" rel="external">d53746</a> 这个 commit 中，提交者改变了 arguments 变成了数组的方式，从简单的 slice 方法，变成了声明一个数组然后一一赋值的方法。</p>
+<p>第一次看到 <code>crankshaft</code> 还不知道是什么，后来才知道是指代 Chrome 的一个引擎。<a href="https://github.com/tj/node-thunkify/pull/12" target="_blank" rel="external">Pull request #12</a> 有提到这个优化，虽然我还是觉得这个优化在某种程度牺牲了部分可读性。</p>
+<h3 id="remove-memoization"><a href="#remove-memoization" class="headerlink" title="remove memoization"></a>remove memoization</h3><p>参考 <a href="https://github.com/tj/node-thunkify/commit/30f25adebf79f4793fd5c8b6f873d5e093dfaf6d" target="_blank" rel="external">30f25a</a> 移除了一个记忆化操作。</p>
+<p>在这个版本之前的代码，如果执行下面的程序，会发现这三次执行都输出同样的结果，这多多少少有点反直觉，所以 commit 上 tj 也说 <code>promises have different expectations</code>。</p>
+<pre><code class="js">function fn (done) {
+  done(null, Date.now())
+}
+
+let dtn = thunkify(fn)()
+
+dtn((err, value) =&gt; console.log(value))
+dtn((err, value) =&gt; console.log(value))
+dtn((err, value) =&gt; console.log(value))
+</code></pre>
+<p>所以这个改进后，执行上述程序只会输出一次结果。</p>
+<h3 id="add-assert-fn"><a href="#add-assert-fn" class="headerlink" title="add assert(fn)"></a>add assert(fn)</h3><p>在 <a href="https://github.com/tj/node-thunkify/commit/05abda9cba45b8669caebbeab4fbe5f4a666336b" target="_blank" rel="external">05abda</a> 处增加了一个 assert 调用避免被 thunkify 的参数不是函数 – 一个提高函数鲁棒性的功能。</p>
+<h3 id="remove-support-for-eager-execution"><a href="#remove-support-for-eager-execution" class="headerlink" title="remove support for eager execution"></a>remove support for eager execution</h3><p><a href="https://github.com/tj/node-thunkify/commit/a504b918a93d04aaa62f467ae7213a25f47d0f69" target="_blank" rel="external">a504b9</a> 算一次比较大的改进，发现这个 commit 大大缩减了代码。不过这次删去了避免回调函数被多次执行的代码，也就是对回调函数的封装。在这之后的几个 commit 里，维护者又把这一层封装添加了回去。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在没有看过 <code>thunkify</code> 源码的情况下，这个功能的实现并不算难。但 <code>thunkify</code> 代码比在本文开始我自己写的代码更优秀的地方就在于代码的鲁棒性，这一点从测试文件和 commit 日志中可见一斑，确实考虑了生产环境中可能出现的众多复杂情况，更适合日常使用。同时，阅读 <code>thunkify</code> 源码的目的也并不限于代码的实现，更多的是学习维护和增加代码的鲁棒性。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="http://es6.ruanyifeng.com/#docs/generator-async" target="_blank" rel="external">Generator 函数的异步应用</a></li>
+<li><a href="https://blog.daraw.cn/2016/11/11/notes-about-node-thunkify/" target="_blank" rel="external">node-thunkify源码阅读笔记</a></li>
+</ol>
+
+
+    <hr/>
+
+    
+        <div class="social-share" data-disabled="weibo,qzone,qq,tencent,douban,linkedin,diandian"></div>
+    
+
+    <div class="blog-post">
+
+    <!--[...]-->
+    
+    <!-- Comments -->
+</div>
+
+    <!-- Tags and Categories links -->
+
+
+</article>
+
+
+</div>
+
+
+<footer class="grey darken-3">
+    <div class="footer-link">
+        
+        <a href="https://github.com/lazzzis" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://twitter.com/lazzzis" target="_blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://www.instagram.com/lazzzis" target="_blank"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+        
+        
+        
+        <a href="https://plus.google.com/114550357749490779368" target="_blank"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i>
+        
+        
+        <a href="http://music.163.com/#/user/home?id=30744948" target="_blank"><i class="fa fa-music fa-2x" aria-hidden="true"></i></a>
+        
+        
+          <a href="/atom.xml" target="_blank" title="rss_feed"><i class="fa fa-rss fa-2x" aria-hidden="true"></i></a>
+        
+    </div>
+    <div class="footer-ps">
+        <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+            &copy; 2017 <a
+                    
+                    href="https://github.com/lazzzis" target="_blank"
+                    
+            > lazzzis</a> - Theme <a href="https://github.com/lazzzis/hexo-theme-mls" target="_blank">MLS</a>
+        </p>
+    </div>
+</footer>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.15/js/social-share.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="/hexo-theme-mls/js/addition.js"></script>
+<script src="/hexo-theme-mls/js/zooming.js"></script>
+<!-- Disqus Comments -->
+
+
+
+<script>
+    // https://github.com/srobbin/jquery-backstretch
+    $.backstretch("/hexo-theme-mls/css/images/background.jpg?version=10-27-46-13");
+
+    
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-87274131-1', 'auto');
+        ga('send', 'pageview');
+    
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<!-- Head -->
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>UVa1619 - Feel Good | lazzzis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="思路明确题目所求 $(a_l + a_{l+1} + \dots + a_r) * min(a_l, a_{l + 2}, \dots , a_r)$&amp;lt;!-- Has MathJax --&amp;gt; 。从公式可以看出，是由两部分组成，一部分是区间和, 另一部分是区间最小值。想法一：受连续最大子序列和的影响，设想是否可以通过 $O(N)$ 的算法获得？但问题是，这个公式有两个部分，或者说，要同时控制两个变量">
+<meta property="og:type" content="website">
+<meta property="og:title" content="UVa1619 - Feel Good">
+<meta property="og:url" content="http://lazzzis.github.io/hexo-theme-mls/2015/12/22/uva1619/index.html">
+<meta property="og:site_name" content="lazzzis">
+<meta property="og:description" content="思路明确题目所求 $(a_l + a_{l+1} + \dots + a_r) * min(a_l, a_{l + 2}, \dots , a_r)$&amp;lt;!-- Has MathJax --&amp;gt; 。从公式可以看出，是由两部分组成，一部分是区间和, 另一部分是区间最小值。想法一：受连续最大子序列和的影响，设想是否可以通过 $O(N)$ 的算法获得？但问题是，这个公式有两个部分，或者说，要同时控制两个变量">
+<meta property="og:updated_time" content="2016-11-08T14:42:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UVa1619 - Feel Good">
+<meta name="twitter:description" content="思路明确题目所求 $(a_l + a_{l+1} + \dots + a_r) * min(a_l, a_{l + 2}, \dots , a_r)$&amp;lt;!-- Has MathJax --&amp;gt; 。从公式可以看出，是由两部分组成，一部分是区间和, 另一部分是区间最小值。想法一：受连续最大子序列和的影响，设想是否可以通过 $O(N)$ 的算法获得？但问题是，这个公式有两个部分，或者说，要同时控制两个变量">
+<meta name="twitter:creator" content="@lazzzis">
+<link rel="publisher" href="https://plus.google.com/114550357749490779368">
+  
+    <link rel="alternative" href="/atom.xml" title="lazzzis" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://s18.postimg.org/k7qcci1t5/s_icon.png">
+  
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.15/css/share.min.css">
+    <style>
+        .hljs-line-numbers {
+            text-align: right;
+            border-right: 1px solid #ccc;
+            color: #999;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="/hexo-theme-mls/css/style.css" type="text/css"> -->
+    <!-- <link rel="stylesheet" href="/hexo-theme-mls/css/code.css" type="text/css"> -->
+    <link rel="stylesheet" href="/hexo-theme-mls/css/style.css?version=5-15-53-13" type="text/css">
+    <link rel="stylesheet" href="/hexo-theme-mls/css/code.css?version=5-15-53-13" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+    <div class="navbar-fixed">
+        <nav class="blue darken-3 nav-extended">
+            <div class="nav-wrapper">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="hide-on-med-and-down">
+                    
+                        <li><a href="/" class="nav-logo">lazzzis</a></li>
+                    
+                    
+                    <li><a class="" href="/">Home</a></li>
+                    
+                    <li><a class="" href="/archives">Archives</a></li>
+                    
+                    <li><a class="" href="/links">Links</a></li>
+                    
+                    <li><a class="" href="/about">About</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+    <ul class="side-nav" id="mobile-demo">
+        
+        <li><a class="" href="/">Home</a></li>
+        
+        <li><a class="" href="/archives">Archives</a></li>
+        
+        <li><a class="" href="/links">Links</a></li>
+        
+        <li><a class="" href="/about">About</a></li>
+        
+    </ul>
+    <!--You have to move ul out to make sure this work in mobile environment-->
+</header>
+
+
+<div class="container">
+      <article class="article-full">
+
+    <!-- Title -->
+    <h2 class="blog-item-title">
+        <a href="/hexo-theme-mls/2015/12/22/uva1619/">
+            UVa1619 - Feel Good
+        </a>
+    </h2>
+
+    <!-- Date and Author -->
+    <p class="blog-item-meta">
+        Published on 2015 Dec 22 19:32:46
+        
+    
+        </br>
+        Last Updated on 2016 Nov 08 22:42:33
+        
+    </p>
+
+
+    <!-- Content -->
+    <h1 id="思路">思路</h1><p>明确题目所求 <span>$(a_l + a_{l+1} + \dots + a_r) * min(a_l, a_{l + 2}, \dots , a_r)$</span><!-- Has MathJax --> 。从公式可以看出，是由两部分组成，一部分是区间和, 另一部分是区间最小值。<br>想法一：受连续最大子序列和的影响，设想是否可以通过 $O(N)$ 的算法获得？但问题是，这个公式有两个部分，或者说，要同时控制两个变量，难度有点大。目前我没有想出什么对应的好办法。<br>想法二：对于两个部分，控制其中一个部分不变，让另一部分尽量大。例如对于  <span>$a_i$</span><!-- Has MathJax -->, 寻找区间 <span>$[l ,r]$</span><!-- Has MathJax -->, 其中  <span>$l &lt;= i &lt;= r$</span><!-- Has MathJax -->， 令<span>$a_i$</span><!-- Has MathJax -->在这个区间内为最小值，则只要区间最大化即可，也就是说，在这个区间内， <span>$a_i$</span><!-- Has MathJax -->是最小值，如果区间再扩大，则  <span>$a_i$</span><!-- Has MathJax --> 不再是这个区间的最小值。对于每一个  <span>$a_i$</span><!-- Has MathJax --> 如何确定区间呢？可以使用设置一个递增的单调队列，从序列的最左边开始，对每一个  <span>$a_i$</span><!-- Has MathJax -->, 寻找比它小的第一个数，此时能确定左边界，同样的，如果单调序列从右边开始，则可以确定右边界。</p>
+<p>需要特别注意的是, 对于我的代码， 在数据为:</p>
+<pre><code>5
+0 0 0 0 0
+</code></pre><p>时，需要特别判断一下。</p>
+<h1 id="代码">代码</h1><pre><code class="cpp">/**
+ * Run Time : 139ms
+ */
+#include &lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+typedef long long LL;
+typedef pair&lt;int, int&gt; pr_int;
+
+int N;
+vector&lt;LL&gt; v;
+const int MAXN = 100000 + 50;
+int left_min[MAXN], right_min[MAXN];
+
+void read() {
+    v.clear();
+    for (int i = 0; i &lt; N; ++ i) {
+        LL t;
+        cin &gt;&gt; t;
+        v.push_back(t);
+    }
+}
+
+void work() {
+    stack&lt;pr_int&gt; st;
+
+    // left
+    st.push(make_pair(-1, -10e7));
+    for (int i = 0; i &lt; N; ++ i) {
+        while (st.top().second &gt;= v[i]) {
+            st.pop();
+        }
+        left_min[i] = st.top().first;
+        st.push(make_pair(i, v[i]));
+    }
+
+    // right
+    while(!st.empty()) {
+        st.pop();
+    }
+    st.push(make_pair(N, -10e7));
+    for (int i = N - 1; i &gt;= 0; -- i) {
+        while (st.top().second &gt;= v[i]) {
+            st.pop();
+        }
+        right_min[i] = st.top().first;
+        st.push(make_pair(i, v[i]));
+    }
+
+    vector&lt;LL&gt; sum;
+    sum.push_back(v[0]);
+    for (int i = 1; i &lt; N; ++ i) {
+        sum.push_back(v[i] + sum[i - 1]);
+    }
+    int lr, rr;
+    LL ans = 0;
+    for (int i = 0; i &lt; N; ++ i) {
+        //cout &lt;&lt; left_min[i] &lt;&lt; &quot; &quot; &lt;&lt; right_min[i] &lt;&lt; endl;
+        LL sumL = left_min[i] == -1 ? 0 : sum[left_min[i]];
+        if ( (sum[right_min[i] - 1] - sumL) * v[i] &gt; ans ) {
+            ans = (sum[right_min[i] - 1] - sumL) * v[i];
+            lr = left_min[i] + 1 + 1;
+            rr = right_min[i];
+        } else if ((sum[right_min[i] - 1] - sumL) * v[i] == ans &amp;&amp;
+         right_min[i] - left_min[i] &lt; rr - lr + 2 ) {
+            lr = left_min[i] + 2;
+            rr = right_min[i];
+        }
+    }
+    if (ans == 0) {
+        cout &lt;&lt; &quot;0\n1 1&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; ans &lt;&lt; endl &lt;&lt; lr &lt;&lt; &quot; &quot; &lt;&lt; rr &lt;&lt; endl;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int K = 0;
+    while(cin &gt;&gt; N) {
+        if (K) {
+            cout &lt;&lt; endl;
+        }
+        K = 1;
+        read();
+        work();
+    }
+    return 0;
+}
+</code></pre>
+
+
+    <hr/>
+
+    
+        <div class="social-share" data-disabled="weibo,qzone,qq,tencent,douban,linkedin,diandian"></div>
+    
+
+    <div class="blog-post">
+
+    <!--[...]-->
+    
+    <!-- Comments -->
+</div>
+
+    <!-- Tags and Categories links -->
+
+
+</article>
+
+
+</div>
+
+
+<footer class="grey darken-3">
+    <div class="footer-link">
+        
+        <a href="https://github.com/lazzzis" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://twitter.com/lazzzis" target="_blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+        
+        
+        <a href="https://www.instagram.com/lazzzis" target="_blank"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+        
+        
+        
+        <a href="https://plus.google.com/114550357749490779368" target="_blank"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i>
+        
+        
+        <a href="http://music.163.com/#/user/home?id=30744948" target="_blank"><i class="fa fa-music fa-2x" aria-hidden="true"></i></a>
+        
+        
+          <a href="/atom.xml" target="_blank" title="rss_feed"><i class="fa fa-rss fa-2x" aria-hidden="true"></i></a>
+        
+    </div>
+    <div class="footer-ps">
+        <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -
+            &copy; 2017 <a
+                    
+                    href="https://github.com/lazzzis" target="_blank"
+                    
+            > lazzzis</a> - Theme <a href="https://github.com/lazzzis/hexo-theme-mls" target="_blank">MLS</a>
+        </p>
+    </div>
+</footer>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.15/js/social-share.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="/hexo-theme-mls/js/addition.js" type="text/javascript"></script>
+<script src="/hexo-theme-mls/js/zooming.js" type="text/javascript"></script>
+<!-- Disqus Comments -->
+
+
+
+<script>
+    // https://github.com/srobbin/jquery-backstretch
+    $.backstretch("/hexo-theme-mls/css/images/background.jpg?version=5-15-53-13");
+
+    
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-87274131-1', 'auto');
+        ga('send', 'pageview');
+    
+
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+
+</html>
