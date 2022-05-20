@@ -11,7 +11,7 @@ rss: /atom.xml
 
 # Google Analytics
 
-google_analytics: UA-87274131-1
+# google_analytics: 
 
 # Miscellaneous
 favicon: https://s18.postimg.org/k7qcci1t5/s_icon.png

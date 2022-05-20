@@ -12,7 +12,7 @@
     <!-- Title -->
         <h3 class="blog-post-title">
             <a href="<%- config.root %><%- item.path %>">
-                <%- item.title %>
+                <%- item.title || "No title" %>
             </a>
         </h3>
         <%- partial('article-tags', {item: item}) %>
